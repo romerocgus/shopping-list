@@ -1,3 +1,11 @@
+# HOW TO USE THIS REPO:
+1. Clone this repo into your project folder
+2. Open a terminal and launch npm install
+3. Change to "initial-setup" branch (git checkout initial-setup)
+4. Once placed in initial-setup branch, create a new branch from that one (git checkout -b yourName-solution)
+5. Develop your solution in that branch.
+6. You can always contrast your solution checking Master branch.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
