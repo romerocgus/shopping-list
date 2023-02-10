@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <Typography variant="h3" align="center">
-        Shopping List
+        Shopping Listita
       </Typography>
     </>
   );
