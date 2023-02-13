@@ -24,7 +24,6 @@ function App() {
   const [searchCriteria, setSearchCriteria] = useState("");
 
   let filteredList = [];
-
   if (searchCriteria.length === 0) {
     filteredList = shoppingList;
   } else {
@@ -34,13 +33,32 @@ function App() {
   }
 
   const handleSearchChange = (event) => {
-    console.log(event.target.value);
     setSearchCriteria(event.target.value);
     if (!shoppingList.some((elem) => elem.name.includes(event.target.value))) {
       setShowAddButton(true);
     } else {
       setShowAddButton(false);
     }
+  };
+
+  const handleAddElement = () => {
+    const newElement = {
+      name: searchCriteria,
+      inStock: false,
+    };
+    setShoppingList((prevState) => [...prevState, newElement]);
+    setSearchCriteria("");
+    setShowAddButton(false);
+  };
+
+  const handleToggleBuy = (label) => {
+    const newList = shoppingList.map((elem) => {
+      if (elem.name === label) {
+        elem.inStock = !elem.inStock;
+      }
+      return elem;
+    });
+    setShoppingList(newList);
   };
 
   return (
@@ -50,22 +68,19 @@ function App() {
         <InputLabel htmlFor="search">Search</InputLabel>
         <OutlinedInput
           id="search"
+          label="Search"
           type="text"
+          value={searchCriteria}
           onChange={handleSearchChange}
           endAdornment={
             showAddButton && (
               <InputAdornment position="end">
-                <IconButton
-                  aria-label="add element"
-                  // onClick={handleClickShowPassword}
-                  // onMouseDown={handleMouseDownPassword}
-                >
+                <IconButton aria-label="add element" onClick={handleAddElement}>
                   {<AddIcon />}
                 </IconButton>
               </InputAdornment>
             )
           }
-          label="Password"
         />
       </FormControl>
       <Card variant="outlined" sx={{ minWidth: 300, paddingTop: 2 }}>
@@ -81,7 +96,10 @@ function App() {
                   <ListItem
                     key={`toBuy-${elem.name}`}
                     secondaryAction={
-                      <IconButton aria-label="bought">
+                      <IconButton
+                        aria-label="bought"
+                        onClick={() => handleToggleBuy(elem.name)}
+                      >
                         <CheckIcon />
                       </IconButton>
                     }
@@ -105,7 +123,10 @@ function App() {
                   <ListItem
                     key={`have-${elem.name}`}
                     secondaryAction={
-                      <IconButton aria-label="add">
+                      <IconButton
+                        aria-label="add"
+                        onClick={() => handleToggleBuy(elem.name)}
+                      >
                         <AddIcon />
                       </IconButton>
                     }
