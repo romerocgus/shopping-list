@@ -20,6 +20,28 @@ import { mockList } from "./Shared/Assets/mockList";
 
 function App() {
   const [shoppingList, setShoppingList] = useState(mockList);
+  const [showAddButton, setShowAddButton] = useState(false);
+  const [searchCriteria, setSearchCriteria] = useState("");
+
+  let filteredList = [];
+
+  if (searchCriteria.length === 0) {
+    filteredList = shoppingList;
+  } else {
+    filteredList = shoppingList.filter((elem) =>
+      elem.name.includes(searchCriteria)
+    );
+  }
+
+  const handleSearchChange = (event) => {
+    console.log(event.target.value);
+    setSearchCriteria(event.target.value);
+    if (!shoppingList.some((elem) => elem.name.includes(event.target.value))) {
+      setShowAddButton(true);
+    } else {
+      setShowAddButton(false);
+    }
+  };
 
   return (
     <Box display="flex" flexDirection="column" gap={4} alignItems="center">
@@ -28,17 +50,20 @@ function App() {
         <InputLabel htmlFor="search">Search</InputLabel>
         <OutlinedInput
           id="search"
-          type="search"
+          type="text"
+          onChange={handleSearchChange}
           endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="add element"
-                // onClick={handleClickShowPassword}
-                // onMouseDown={handleMouseDownPassword}
-              >
-                {<AddIcon />}
-              </IconButton>
-            </InputAdornment>
+            showAddButton && (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="add element"
+                  // onClick={handleClickShowPassword}
+                  // onMouseDown={handleMouseDownPassword}
+                >
+                  {<AddIcon />}
+                </IconButton>
+              </InputAdornment>
+            )
           }
           label="Password"
         />
@@ -49,8 +74,8 @@ function App() {
             To Buy
           </Typography>
           <List>
-            {shoppingList &&
-              shoppingList
+            {filteredList &&
+              filteredList
                 .filter((elem) => elem.inStock === false)
                 .map((elem) => (
                   <ListItem
@@ -73,8 +98,8 @@ function App() {
             Already Have
           </Typography>
           <List>
-            {shoppingList &&
-              shoppingList
+            {filteredList &&
+              filteredList
                 .filter((elem) => elem.inStock === true)
                 .map((elem) => (
                   <ListItem
