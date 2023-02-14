@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, CircularProgress } from "@mui/material";
 
-import { mockList } from "./Shared/Assets/mockList";
 import { ShoppingList } from "./Components/ShoppingList";
 import { SearchBar } from "./Components/SearchBar";
+import { useMockedData } from "./useMockedData";
 
 function App() {
-  const [shoppingList, setShoppingList] = useState(mockList);
+  const { shoppingList, setShoppingList, isLoading } = useMockedData();
   const [showAddButton, setShowAddButton] = useState(false);
   const [searchCriteria, setSearchCriteria] = useState("");
 
@@ -52,18 +52,24 @@ function App() {
   return (
     <Box display="flex" flexDirection="column" gap={4} alignItems="center">
       <Typography variant="h3">Shopping List</Typography>
-      <SearchBar
-        searchCriteria={searchCriteria}
-        onSearchChange={handleSearchChange}
-        onButtonClick={handleAddElement}
-        showButton={showAddButton}
-      />
-      <ShoppingList
-        elements={searchedList}
-        onToggleBuy={handleToggleBuy}
-        isBuy={true}
-      />
-      <ShoppingList elements={searchedList} onToggleBuy={handleToggleBuy} />
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <SearchBar
+            searchCriteria={searchCriteria}
+            onSearchChange={handleSearchChange}
+            onButtonClick={handleAddElement}
+            showButton={showAddButton}
+          />
+          <ShoppingList
+            elements={searchedList}
+            onToggleBuy={handleToggleBuy}
+            isBuy={true}
+          />
+          <ShoppingList elements={searchedList} onToggleBuy={handleToggleBuy} />
+        </>
+      )}
     </Box>
   );
 }

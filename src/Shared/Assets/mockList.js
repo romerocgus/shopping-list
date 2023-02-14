@@ -20,7 +20,7 @@ const mockList = [
     inStock: true,
   },
   {
-    name: "lalala",
+    name: "fernet",
     inStock: true,
   },
 ];
