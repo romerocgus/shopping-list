@@ -19,6 +19,14 @@ function App() {
     setSearchCriteria(event.target.value);
   };
 
+  const handleAddElement = () => {
+    const newElement = {
+      name: searchCriteria,
+      inStock: false,
+    };
+    setItems((prev) => [...prev, newElement]);
+  };
+
   const handleToggleBuy = (label) => {
     const newList = items.map((elem) => {
       if (elem.name === label) {
@@ -38,6 +46,7 @@ function App() {
         searchCriteria={searchCriteria}
         onSearchChange={handleSearchChange}
         showButton={!searchedList.length}
+        onButtonClick={handleAddElement}
       />
       <ShoppingList
         elements={searchedList}
