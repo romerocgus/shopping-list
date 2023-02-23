@@ -11,7 +11,7 @@ const ShoppingListItem = ({ label, isBuy, onToggleBuy }) => {
           aria-label="action-button"
           onClick={() => onToggleBuy(label)}
         >
-                    {isBuy ? <CheckIcon /> : <AddIcon />}       {" "}
+          {isBuy ? <CheckIcon /> : <AddIcon />}
         </IconButton>
       }
     >

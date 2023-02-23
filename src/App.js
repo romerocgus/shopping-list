@@ -21,6 +21,16 @@ function App() {
     setSearchCriteria(event.target.value);
   };
 
+  const handleAddElement = () => {
+    const newElement = {
+      name: searchCriteria,
+      inStock: true,
+    };
+
+    setItems((prev) => [...prev, newElement]);
+    setSearchCriteria("");
+  };
+
   const handleToggleBuy = (label) => {
     const newList = items.map((elem) => {
       if (elem.name === label) {
@@ -39,6 +49,7 @@ function App() {
       <SearchBar
         searchCriteria={searchCriteria}
         onSearchChange={handleSearchChange}
+        onButtonClick={handleAddElement}
         showButton={!searchedList.length}
       />
       <ShoppingList
