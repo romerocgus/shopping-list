@@ -8,7 +8,7 @@ const ShoppingList = ({ elements, onToggleBuy, isBuy }) => {
       <Card variant="outlined" sx={{ minWidth: 300, paddingTop: 2 }}>
         <Box display="flex" flexDirection="column">
           <Typography variant="subtitle1" align="center" mb={4}>
-            Título
+            {isBuy ? "To buy" : "Already Have"}
           </Typography>
           <List>
             {elements
