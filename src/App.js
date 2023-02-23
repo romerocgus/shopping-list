@@ -6,6 +6,18 @@ import { mockList } from "./Shared/Assets/mockList";
 
 function App() {
   const [items, setItems] = useState(mockList);
+  const [searchCriteria, setSearchCriteria] = useState("");
+
+  let searchedList = [];
+  if (searchCriteria.length === 0) {
+    searchedList = items;
+  } else {
+    searchedList = items.filter((elem) => elem.name.includes(searchCriteria));
+  }
+
+  const handleSearchChange = (event) => {
+    setSearchCriteria(event.target.value);
+  };
 
   const handleToggleBuy = (label) => {
     const newList = items.map((elem) => {
@@ -22,10 +34,18 @@ function App() {
       <Typography variant="h3" align="center">
         Shopping List
       </Typography>
-      <SearchBar />
-      <ShoppingList elements={items} onToggleBuy={handleToggleBuy} isBuy />
+      <SearchBar
+        searchCriteria={searchCriteria}
+        onSearchChange={handleSearchChange}
+        showButton={!searchedList.length}
+      />
       <ShoppingList
-        elements={items}
+        elements={searchedList}
+        onToggleBuy={handleToggleBuy}
+        isBuy
+      />
+      <ShoppingList
+        elements={searchedList}
         onToggleBuy={handleToggleBuy}
         isBuy={false}
       />
