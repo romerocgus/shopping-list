@@ -8,7 +8,6 @@ import { useMockedData } from "./useMockedData";
 
 function App() {
   const { shoppingList, setShoppingList, isLoading } = useMockedData();
-  const [showAddButton, setShowAddButton] = useState(false);
   const [searchCriteria, setSearchCriteria] = useState("");
 
   let searchedList = [];
@@ -22,11 +21,6 @@ function App() {
 
   const handleSearchChange = (event) => {
     setSearchCriteria(event.target.value);
-    if (!shoppingList.some((elem) => elem.name.includes(event.target.value))) {
-      setShowAddButton(true);
-    } else {
-      setShowAddButton(false);
-    }
   };
 
   const handleAddElement = () => {
@@ -36,7 +30,6 @@ function App() {
     };
     setShoppingList((prevState) => [...prevState, newElement]);
     setSearchCriteria("");
-    setShowAddButton(false);
   };
 
   const handleToggleBuy = (label) => {
@@ -60,7 +53,7 @@ function App() {
             searchCriteria={searchCriteria}
             onSearchChange={handleSearchChange}
             onButtonClick={handleAddElement}
-            showButton={showAddButton}
+            showButton={!searchedList.length}
           />
           <ShoppingList
             elements={searchedList}
