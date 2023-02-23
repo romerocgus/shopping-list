@@ -58,9 +58,13 @@ function App() {
           <ShoppingList
             elements={searchedList}
             onToggleBuy={handleToggleBuy}
-            isBuy={true}
+            isBuyList
           />
-          <ShoppingList elements={searchedList} onToggleBuy={handleToggleBuy} />
+          <ShoppingList
+            elements={searchedList}
+            onToggleBuy={handleToggleBuy}
+            isBuyList={false}
+          />
         </>
       )}
     </Box>
