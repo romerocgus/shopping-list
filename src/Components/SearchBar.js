@@ -25,7 +25,10 @@ const SearchBar = ({
         endAdornment={
           showButton && (
             <InputAdornment position='end'>
-              <IconButton aria-label='add element' onClick={onButtonClick}>
+              <IconButton
+                aria-label='add element'
+                onClick={() => onButtonClick()}
+              >
                 {<AddIcon />}
               </IconButton>
             </InputAdornment>

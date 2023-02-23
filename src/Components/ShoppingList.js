@@ -7,11 +7,11 @@ const ShoppingList = ({ elements, onToggleBuy, isBuy }) => {
     <Card variant='outlined' sx={{ minWidth: 300, paddingTop: 2 }}>
       <Box display='flex' flexDirection='column'>
         <Typography variant='subtitle1' align='center' mb={4}>
-          {isBuy ? 'En stock' : 'Sin stock'}
+          {isBuy ? 'To Buy' : 'Already Have'}
         </Typography>
         <List>
           {elements
-            .filter((elem) => elem.inStock === isBuy)
+            .filter((elem) => elem.inStock === !isBuy)
             .map((elem) => (
               <ShoppingListItem
                 key={`shopping-item-${elem.name}`}

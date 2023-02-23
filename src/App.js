@@ -25,10 +25,11 @@ function App() {
     setItems(newItems);
   };
 
-  /*const handleButtonClick = (v) => {
-    const newItem = { name: v, inStock: false };
+  const handleAddElement = () => {
+    const newItem = { name: searchCriteria, inStock: false };
     setItems([...items, newItem]);
-  };*/
+    setSearchCriteria('');
+  };
 
   const handleSearchChange = (event) => {
     setSearchCriteria(event.target.value);
@@ -43,6 +44,7 @@ function App() {
         searchCriteria={searchCriteria}
         onSearchChange={handleSearchChange}
         showButton={!searchedList.length}
+        onButtonClick={handleAddElement}
       />
       <ShoppingList
         elements={searchedList}
