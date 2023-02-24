@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { SearchBar } from './Components/SearchBar';
 import { ShoppingList } from './Components/ShoppingList';
-import { mockList } from './Shared/Assets/mockList';
 import { Box, Typography, CircularProgress } from '@mui/material';
+import { useMockedData } from './useMockedData';
 
 function App() {
-  const [items, setItems] = useState(mockList);
+  const { items, setItems, isLoading } = useMockedData();
   const [searchCriteria, setSearchCriteria] = useState('');
 
   let searchedList = [];
@@ -35,14 +35,12 @@ function App() {
     setSearchCriteria(event.target.value);
   };
 
-  let test = false;
-
   return (
     <Box display='flex' flexDirection='column' gap={4} alignItems='center'>
       <Typography variant='h3' align='center'>
         Shopping List
       </Typography>
-      {test ? (
+      {isLoading ? (
         <CircularProgress />
       ) : (
         <>
