@@ -22,9 +22,10 @@ function App() {
   const handleAddElement = () => {
     const newElement = {
       name: searchCriteria,
-      inStock: true,
+      inStock: false,
     };
     setItems((prev) => [...prev, newElement]);
+    setSearchCriteria("");
   };
 
   const handleToggleBuy = (label) => {
