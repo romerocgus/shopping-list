@@ -25,6 +25,7 @@ function App() {
       inStock: false,
     };
     setItems((prev) => [...prev, newElement]);
+    setSearchCriteria("");
   };
 
   const handleToggleBuy = (label) => {
