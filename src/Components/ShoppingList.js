@@ -11,7 +11,7 @@ const ShoppingList = ({ elements, onToggleBuy, isBuy }) => {
         </Typography>
         <List>
           {elements
-            .filter((elem) => elem.inStock === !isBuy)
+            .filter((elem) => elem.inStock !== isBuy)
             .map((elem) => (
               <ShoppingListItem
                 key={`shopping-item-${elem.name}`}
