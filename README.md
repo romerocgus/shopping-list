@@ -4,7 +4,7 @@
 3. Change to "initial-setup" branch (git checkout initial-setup)
 4. Once placed in initial-setup branch, create a new branch from that one (git checkout -b yourName-solution)
 5. Develop your solution in that branch.
-6. You can always contrast your solution checking Master branch.
+6. You can always compare your solution checking Master branch.
 
 # Getting Started with Create React App
 
