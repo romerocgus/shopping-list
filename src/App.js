@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, CircularProgress } from "@mui/material";
 import { SearchBar } from "./Components/SearchBar";
 import { ShoppingList } from "./Components/ShoppingList";
-import { mockList } from "./Shared/Assets/mockList";
+import { useMockedData } from "./useMockedData";
 
 function App() {
-  const [items, setItems] = useState(mockList);
+  const { items, setItems, isLoading } = useMockedData();
   const [searchCriteria, setSearchCriteria] = useState("");
 
   let searchedList = [];
@@ -43,22 +43,51 @@ function App() {
       <Typography variant="h3" align="center">
         Shopping List
       </Typography>
-      <SearchBar
-        searchCriteria={searchCriteria}
-        onSearchChange={handleSearchChange}
-        showButton={!searchedList.length}
-        onButtonClick={handleAddElement}
-      />
-      <ShoppingList
-        elements={searchedList}
-        onToggleBuy={handleToggleBuy}
-        isBuy
-      />
-      <ShoppingList
-        elements={searchedList}
-        onToggleBuy={handleToggleBuy}
-        isBuy={false}
-      />
+
+      {isLoading && <CircularProgress />}
+      {!isLoading && (
+        <>
+          <SearchBar
+            searchCriteria={searchCriteria}
+            onSearchChange={handleSearchChange}
+            showButton={!searchedList.length}
+            onButtonClick={handleAddElement}
+          />
+          <ShoppingList
+            elements={searchedList}
+            onToggleBuy={handleToggleBuy}
+            isBuy
+          />
+          <ShoppingList
+            elements={searchedList}
+            onToggleBuy={handleToggleBuy}
+            isBuy={false}
+          />
+        </>
+      )}
+      {/* *****otra forma de hacer esto último
+       {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <SearchBar
+            searchCriteria={searchCriteria}
+            onSearchChange={handleSearchChange}
+            showButton={!searchedList.length}
+            onButtonClick={handleAddElement}
+          />
+          <ShoppingList
+            elements={searchedList}
+            onToggleBuy={handleToggleBuy}
+            isBuy
+          />
+          <ShoppingList
+            elements={searchedList}
+            onToggleBuy={handleToggleBuy}
+            isBuy={false}
+          />
+        </>
+      )} */}
     </Box>
   );
 }
