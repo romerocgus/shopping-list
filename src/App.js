@@ -7,7 +7,6 @@ import { mockList } from "./Shared/Assets/mockList";
 function App() {
   const [items, setItems] = useState(mockList);
   const [searchCriteria, setSearchCriteria] = useState("");
-  console.log("lalalala");
 
   let searchedList = [];
   if (searchCriteria.length) {
