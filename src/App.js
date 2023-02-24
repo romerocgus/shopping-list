@@ -1,50 +1,45 @@
-import React, { useState } from "react";
-
-import { Typography, Box, CircularProgress } from "@mui/material";
-
-import { ShoppingList } from "./Components/ShoppingList";
-import { SearchBar } from "./Components/SearchBar";
-import { useMockedData } from "./useMockedData";
+import React, { useState } from 'react';
+import { SearchBar } from './Components/SearchBar';
+import { ShoppingList } from './Components/ShoppingList';
+import { Box, Typography, CircularProgress } from '@mui/material';
+import { useMockedData } from './useMockedData';
 
 function App() {
-  const { shoppingList, setShoppingList, isLoading } = useMockedData();
-  const [searchCriteria, setSearchCriteria] = useState("");
+  const { items, setItems, isLoading } = useMockedData();
+  const [searchCriteria, setSearchCriteria] = useState('');
 
   let searchedList = [];
   if (searchCriteria.length === 0) {
-    searchedList = shoppingList;
+    searchedList = items;
   } else {
-    searchedList = shoppingList.filter((elem) =>
-      elem.name.includes(searchCriteria)
-    );
+    searchedList = items.filter((elem) => elem.name.includes(searchCriteria));
   }
 
-  const handleSearchChange = (event) => {
-    setSearchCriteria(event.target.value);
-  };
-
-  const handleAddElement = () => {
-    const newElement = {
-      name: searchCriteria,
-      inStock: false,
-    };
-    setShoppingList((prevState) => [...prevState, newElement]);
-    setSearchCriteria("");
-  };
-
   const handleToggleBuy = (label) => {
-    const newList = shoppingList.map((elem) => {
+    const newItems = items.map((elem) => {
       if (elem.name === label) {
         elem.inStock = !elem.inStock;
       }
       return elem;
     });
-    setShoppingList(newList);
+    setItems(newItems);
+  };
+
+  const handleAddElement = () => {
+    const newItem = { name: searchCriteria, inStock: false };
+    setItems([...items, newItem]);
+    setSearchCriteria('');
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchCriteria(event.target.value);
   };
 
   return (
-    <Box display="flex" flexDirection="column" gap={4} alignItems="center">
-      <Typography variant="h3">Shopping List</Typography>
+    <Box display='flex' flexDirection='column' gap={4} alignItems='center'>
+      <Typography variant='h3' align='center'>
+        Shopping List
+      </Typography>
       {isLoading ? (
         <CircularProgress />
       ) : (
@@ -52,18 +47,18 @@ function App() {
           <SearchBar
             searchCriteria={searchCriteria}
             onSearchChange={handleSearchChange}
-            onButtonClick={handleAddElement}
             showButton={!searchedList.length}
+            onButtonClick={handleAddElement}
           />
           <ShoppingList
             elements={searchedList}
             onToggleBuy={handleToggleBuy}
-            isBuyList
+            isBuy={true}
           />
           <ShoppingList
             elements={searchedList}
             onToggleBuy={handleToggleBuy}
-            isBuyList={false}
+            isBuy={false}
           />
         </>
       )}
