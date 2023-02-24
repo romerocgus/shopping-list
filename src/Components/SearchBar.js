@@ -7,7 +7,6 @@ import {
   OutlinedInput,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-
 const SearchBar = ({
   searchCriteria,
   onSearchChange,
@@ -36,5 +35,4 @@ const SearchBar = ({
     </FormControl>
   );
 };
-
 export { SearchBar };
